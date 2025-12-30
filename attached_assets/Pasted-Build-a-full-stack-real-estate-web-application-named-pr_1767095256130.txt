@@ -1,0 +1,83 @@
+Build a full-stack real estate web application named "propertyworld.io" inspired by NoBroker and 99acres, but with a more modern, premium, and interactive UI.
+
+TECH STACK:
+- Frontend: HTML5, CSS3, Vanilla JavaScript
+- Backend: Node.js with Express.js
+- Database: MongoDB (use Mongoose)
+- Image storage: Use external image URLs (Unsplash / placeholder images)
+- Animations: CSS animations + JavaScript transitions
+- Hosting-ready structure (MVC style)
+
+CORE FEATURES (COMBINE BEST OF NOBROKER + 99ACRES):
+
+1. HOME PAGE:
+- Hero section with animated background image (parallax or zoom animation)
+- Search bar with:
+  - Location input
+  - Buy / Rent toggle
+  - Property type dropdown
+  - Budget range slider
+- CTA buttons: Search, Post Property, Login, Signup
+- Featured properties section with animated cards
+- Hover effects on cards
+- Smooth scroll animations
+
+2. PROPERTY LISTING PAGE:
+- Dynamic property cards loaded from MongoDB
+- Filters:
+  - Location
+  - Price range
+  - Property type
+  - BHK
+- Sort options (Price low-high, high-low)
+- Each card includes:
+  - Image carousel
+  - Price
+  - Location
+  - Area
+  - Contact Owner button
+- All buttons fully functional
+
+3. PROPERTY DETAILS PAGE:
+- Full image gallery with animations
+- Property description
+- Amenities icons
+- Map placeholder
+- Contact owner form (store enquiries in MongoDB)
+- Save / Wishlist button
+
+4. POST PROPERTY PAGE:
+- Form with validation:
+  - Title
+  - Description
+  - Price
+  - Location
+  - Property type
+  - Upload image URL
+- Save property to MongoDB
+- Success animation on submit
+
+5. AUTHENTICATION:
+- Signup page
+- Login page
+- Password hashing
+- Session or JWT-based login
+- Protected routes for posting properties
+
+6. DASHBOARD:
+- User dashboard showing:
+  - Posted properties
+  - Delete / Edit property
+- Simple analytics UI (count of views, enquiries)
+
+7. UI / UX REQUIREMENTS:
+- Modern color palette (white, dark blue, gradient accents)
+- Glassmorphism or card-based UI
+- Smooth transitions and hover effects
+- Button ripple or glow effects
+- Scroll animations
+- Mobile responsive design
+
+8. IMAGES & VISUALS:
+- Use high-quality real estate images
+- Animated hero
