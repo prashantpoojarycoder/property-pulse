@@ -19,8 +19,8 @@
   --color-muted: hsl(220 14% 94%);
   --color-muted-foreground: hsl(220 8% 46%);
 
-  --color-accent: hsl(230 85% 96%);
-  --color-accent-foreground: hsl(230 85% 60%);
+  --color-accent: hsl(30 100% 50%); /* Vibrant Orange for Indian flavor */
+  --color-accent-foreground: hsl(0 0% 100%);
 
   --color-card: hsl(0 0% 100%);
   --color-card-foreground: hsl(222 47% 11%);
@@ -29,38 +29,47 @@
   --color-input: hsl(220 13% 91%);
   --color-ring: hsl(230 85% 60%);
 
-  --radius-lg: 0.75rem;
-  --radius-md: 0.5rem;
-  --radius-sm: 0.25rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
 
   --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   
   @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
   }
 }
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
   }
   
   .glass-dark {
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, hsl(230 85% 60%) 0%, hsl(260 85% 65%) 100%);
+    background: linear-gradient(135deg, hsl(230 85% 60%) 0%, hsl(30 100% 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px -5px hsl(230 85% 60% / 0.5);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px -5px hsl(30 100% 50% / 0.5);
   }
 }
 
@@ -68,8 +77,14 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-foreground);
+  scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+}
+
+::selection {
+  background-color: hsl(230 85% 60% / 0.2);
+  color: hsl(230 85% 60%);
 }
