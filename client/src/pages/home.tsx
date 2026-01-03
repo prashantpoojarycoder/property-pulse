@@ -2,9 +2,9 @@ import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Search, MapPin, ArrowRight, Sparkles, Home as HomeIcon, Shield, Zap } from "lucide-react";
+import { Search, MapPin, ArrowRight, Sparkles, Home as HomeIcon, Shield, Zap, Award, BadgeCheck } from "lucide-react";
 import heroImage from "@assets/generated_images/modern_luxury_home_exterior_twilight.png";
 import { mockProperties } from "@/lib/mockData";
 import { Link } from "wouter";
@@ -85,6 +85,8 @@ export default function Home() {
                       <SelectItem value="del">Delhi NCR</SelectItem>
                       <SelectItem value="blr">Bangalore</SelectItem>
                       <SelectItem value="pun">Pune</SelectItem>
+                      <SelectItem value="hyd">Hyderabad</SelectItem>
+                      <SelectItem value="che">Chennai</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -98,6 +100,7 @@ export default function Home() {
                       <SelectItem value="apt">Apartment</SelectItem>
                       <SelectItem value="villa">Villa</SelectItem>
                       <SelectItem value="pent">Penthouse</SelectItem>
+                      <SelectItem value="land">Plot / Land</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -108,9 +111,11 @@ export default function Home() {
                       <SelectValue placeholder="Budget Range" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="50l">₹50L - ₹2Cr</SelectItem>
-                      <SelectItem value="2c">₹2Cr - ₹10Cr</SelectItem>
-                      <SelectItem value="10c">₹10Cr+</SelectItem>
+                      <SelectItem value="50l">₹50L - ₹1Cr</SelectItem>
+                      <SelectItem value="1c">₹1Cr - ₹5Cr</SelectItem>
+                      <SelectItem value="5c">₹5Cr - ₹10Cr</SelectItem>
+                      <SelectItem value="10c">₹10Cr - ₹20Cr</SelectItem>
+                      <SelectItem value="20c">₹20Cr+</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -161,7 +166,29 @@ export default function Home() {
               <p className="text-lg text-slate-600 leading-relaxed">
                 Born from a passion for simplifying the complex Indian property market, PropertyWorld.io isn't just a portal—it's your strategic partner. We leverage advanced analytics and immersive visual technologies to bring you a curated selection of India's finest addresses. From the heritage bungalows of Pondicherry to the soaring skyscrapers of Worli, we bridge the gap between your aspirations and your next home.
               </p>
-              <div className="grid grid-cols-2 gap-8">
+              
+              {/* Certificates Section */}
+              <div className="pt-6">
+                <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <Award className="h-5 w-5 text-accent" /> Our Accreditations
+                </h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <BadgeCheck className="h-4 w-4 text-green-500" />
+                    <span className="text-xs font-bold text-slate-700">RERA Registered</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <BadgeCheck className="h-4 w-4 text-green-500" />
+                    <span className="text-xs font-bold text-slate-700">ISO 9001:2015</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <BadgeCheck className="h-4 w-4 text-green-500" />
+                    <span className="text-xs font-bold text-slate-700">NAR-INDIA Member</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-8 pt-4">
                 <div className="space-y-2">
                   <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
                     <Shield className="h-6 w-6 text-primary" />
@@ -287,7 +314,7 @@ export default function Home() {
                 <Link href="/post-property" className={cn(buttonVariants({ size: "lg" }), "h-16 px-10 text-lg rounded-2xl glow-primary shadow-2xl")}>
                   Get Started Today
                 </Link>
-                <Link href="/contact" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-16 px-10 text-lg rounded-2xl border-white/10 text-white hover:bg-white/5")}>
+                <Link href="/auth" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-16 px-10 text-lg rounded-2xl border-white/10 text-white hover:bg-white/5")}>
                   Talk to an Expert
                 </Link>
               </div>

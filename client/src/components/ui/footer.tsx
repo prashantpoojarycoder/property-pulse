@@ -41,7 +41,7 @@ export function Footer() {
             <ul className="space-y-2">
               {["Home", "Properties", "Post Property", "About Us", "Contact"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group">
+                  <Link href={item === "Post Property" ? "/post-property" : "#"} className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
                     {item}
                   </Link>
@@ -59,9 +59,9 @@ export function Footer() {
           >
             <h3 className="text-white font-semibold mb-4">Top Indian Cities</h3>
             <ul className="space-y-2">
-              {["Mumbai", "Delhi NCR", "Bangalore", "Pune", "Hyderabad"].map((item) => (
+              {["Mumbai", "Delhi NCR", "Bangalore", "Pune", "Hyderabad", "Chennai"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group">
+                  <Link href="/listings" className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
                     {item}
                   </Link>
@@ -101,9 +101,9 @@ export function Footer() {
           </p>
           <div className="flex gap-4">
             {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-              <a key={i} href="#" className="p-2 rounded-full bg-slate-800 hover:bg-primary hover:text-white transition-all duration-300">
+              <Link key={i} href="/dashboard" className="p-2 rounded-full bg-slate-800 hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer">
                 <Icon className="h-4 w-4" />
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -57,7 +57,7 @@ export default function PostProperty() {
                 <div>
                   <CardTitle className="text-2xl">Property Details</CardTitle>
                   <CardDescription className="text-slate-400 mt-1">
-                    Provide accurate information to get better responses
+                    Provide accurate information for better visibility
                   </CardDescription>
                 </div>
               </div>
@@ -71,11 +71,11 @@ export default function PostProperty() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="title">Property Title</Label>
-                      <Input id="title" placeholder="e.g. Luxury 3BHK Apartment" required />
+                      <Input id="title" placeholder="e.g. Luxury 3BHK in Worli" required />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="price">Expected Price</Label>
-                      <Input id="price" placeholder="e.g. $450,000" required />
+                      <Label htmlFor="price">Expected Price (₹)</Label>
+                      <Input id="price" placeholder="e.g. 5.5 Cr" required />
                     </div>
                   </div>
                   
@@ -115,11 +115,11 @@ export default function PostProperty() {
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="city">City</Label>
-                      <Input id="city" placeholder="e.g. New York" required />
+                      <Input id="city" placeholder="e.g. Mumbai" required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="locality">Locality / Area</Label>
-                      <Input id="locality" placeholder="e.g. Downtown" required />
+                      <Input id="locality" placeholder="e.g. Andheri East" required />
                     </div>
                   </div>
                   <div className="space-y-2">

@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { PropertyCard } from "@/components/property-card";
 import { mockProperties } from "@/lib/mockData";
-import { LayoutDashboard, Home, Eye, MessageSquare, Settings, PlusCircle } from "lucide-react";
-import { Link } from "wouter";
+import { LayoutDashboard, Home, Eye, MessageSquare, Settings, PlusCircle, LogOut } from "lucide-react";
+import { Link, useLocation } from "wouter";
 
 export default function Dashboard() {
+  const [, setLocation] = useLocation();
   const myProperties = mockProperties.slice(0, 2);
 
   return (
@@ -25,7 +26,7 @@ export default function Dashboard() {
                  </div>
                  <div>
                    <p className="font-bold">John Doe</p>
-                   <p className="text-xs text-slate-500">Free Account</p>
+                   <p className="text-xs text-slate-500">Premium Member</p>
                  </div>
                </div>
                <Button className="w-full text-xs" size="sm" variant="outline">Edit Profile</Button>
@@ -47,6 +48,11 @@ export default function Dashboard() {
                <Button variant="ghost" className="w-full justify-start gap-3">
                  <Settings className="h-4 w-4" /> Settings
                </Button>
+               <div className="pt-4 border-t border-slate-100 mt-4">
+                 <Button variant="ghost" className="w-full justify-start gap-3 text-red-500 hover:text-red-600 hover:bg-red-50" onClick={() => setLocation("/")}>
+                   <LogOut className="h-4 w-4" /> Logout
+                 </Button>
+               </div>
              </nav>
           </aside>
 
