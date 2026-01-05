@@ -4,6 +4,7 @@ export interface Property {
   id: number;
   title: string;
   price: string;
+  priceValue: number;
   location: string;
   type: "Rent" | "Buy";
   propertyType: "Apartment" | "House" | "Villa" | "Plot";
@@ -20,8 +21,9 @@ export interface Property {
 export const mockProperties: Property[] = [
   {
     id: 1,
-    title: "Ultra Luxury 3BHK in Lodha World Towers",
-    price: "₹8.5 Cr",
+    title: "Sea Facing Luxury 3BHK",
+    price: "₹8.50 Cr",
+    priceValue: 85000000,
     location: "Worli, Mumbai",
     type: "Buy",
     propertyType: "Apartment",
@@ -38,30 +40,14 @@ export const mockProperties: Property[] = [
   },
   {
     id: 2,
-    title: "Sky Villa with Private Deck",
-    price: "₹1.8 Lac/mo",
-    location: "HSR Layout, Bangalore",
-    type: "Rent",
-    propertyType: "Villa",
-    bhk: 4,
-    area: "3800 sqft",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1000",
-    images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1000"
-    ],
-    description: "A tech-enabled smart villa in the heart of Bangalore's startup hub. Includes a private terrace garden and automated climate control.",
-    amenities: ["Smart Home", "Private Garden", "EV Charging", "Clubhouse"],
-    owner: "Karthik Raja"
-  },
-  {
-    id: 3,
-    title: "Modern 2BHK near Cyber City",
+    title: "Premium 2BHK with Balcony",
     price: "₹65,000/mo",
-    location: "DLF Phase 3, Gurgaon",
+    priceValue: 65000,
+    location: "Andheri West, Mumbai",
     type: "Rent",
     propertyType: "Apartment",
     bhk: 2,
-    area: "1400 sqft",
+    area: "1100 sqft",
     image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1000",
     images: [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1000"
@@ -71,54 +57,75 @@ export const mockProperties: Property[] = [
     owner: "Sandeep Gupta"
   },
   {
-    id: 4,
-    title: "Penthouse at The Address",
-    price: "₹12.5 Cr",
-    location: "Banjara Hills, Hyderabad",
+    id: 3,
+    title: "Spacious 4BHK Penthouse",
+    price: "₹15.00 Cr",
+    priceValue: 150000000,
+    location: "Bandra West, Mumbai",
     type: "Buy",
     propertyType: "Apartment",
     bhk: 4,
-    area: "5200 sqft",
-    image: "https://images.unsplash.com/photo-1502005229766-939cb9342704?auto=format&fit=crop&q=80&w=1000",
+    area: "3500 sqft",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000",
     images: [
-      "https://images.unsplash.com/photo-1502005229766-939cb9342704?auto=format&fit=crop&q=80&w=1000"
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000"
     ],
-    description: "Palatial penthouse with grand ceilings and a private elevator. Situated in Hyderabad's most elite neighborhood.",
-    amenities: ["Private Lift", "Terrace Pool", "Valet Parking"],
-    owner: "Venkata Reddy"
+    description: "Ultra-luxury penthouse with a private terrace garden in the heart of Bandra. Unmatched privacy and exclusivity.",
+    amenities: ["Private Terrace", "Gym", "Parking", "Security"],
+    owner: "Karan Johar"
+  },
+  {
+    id: 4,
+    title: "Modern 1BHK Studio",
+    price: "₹35,000/mo",
+    priceValue: 35000,
+    location: "Powai, Mumbai",
+    type: "Rent",
+    propertyType: "Apartment",
+    bhk: 1,
+    area: "550 sqft",
+    image: "https://images.unsplash.com/photo-1536376074432-834fa5725800?auto=format&fit=crop&q=80&w=1000",
+    images: [
+      "https://images.unsplash.com/photo-1536376074432-834fa5725800?auto=format&fit=crop&q=80&w=1000"
+    ],
+    description: "Cozy studio apartment with lake views. Fully furnished and ready to move in. Ideal for single professionals.",
+    amenities: ["Lake View", "WiFi", "Housekeeping"],
+    owner: "Rahul Sharma"
   },
   {
     id: 5,
-    title: "Eco-Friendly Row House",
-    price: "₹2.5 Cr",
-    location: "Kothrud, Pune",
+    title: "Independent Villa with Garden",
+    price: "₹25.00 Cr",
+    priceValue: 250000000,
+    location: "Juhu, Mumbai",
     type: "Buy",
-    propertyType: "House",
-    bhk: 3,
-    area: "2100 sqft",
-    image: "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=1000",
+    propertyType: "Villa",
+    bhk: 5,
+    area: "6000 sqft",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1000",
     images: [
-      "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=1000"
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1000"
     ],
-    description: "Sustainable living meets modern design. Solar-powered house with rainwater harvesting and organic composting unit.",
-    amenities: ["Solar Power", "Organic Garden", "Community Center"],
-    owner: "Priya Deshpande"
+    description: "Stunning independent villa just steps away from Juhu Beach. Features a private swimming pool and landscaped gardens.",
+    amenities: ["Private Pool", "Garden", "Garage", "Staff Quarters"],
+    owner: "Shah Rukh Khan"
   },
   {
     id: 6,
-    title: "Heritage Style Bungalow",
-    price: "₹15 Cr",
-    location: "White Town, Pondicherry",
+    title: "Compact 1BHK near Station",
+    price: "₹1.20 Cr",
+    priceValue: 12000000,
+    location: "Borivali East, Mumbai",
     type: "Buy",
-    propertyType: "House",
-    bhk: 5,
-    area: "4500 sqft",
-    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1000",
+    propertyType: "Apartment",
+    bhk: 1,
+    area: "450 sqft",
+    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1000",
     images: [
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1000"
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1000"
     ],
-    description: "Restored French colonial bungalow. A piece of history with modern comfort, steps away from the promenade beach.",
-    amenities: ["Courtyard", "High Ceilings", "Wine Cellar"],
-    owner: "Jean Pierre"
+    description: "Well-maintained 1BHK in a peaceful society. Excellent connectivity to the railway station and western express highway.",
+    amenities: ["Gated Community", "CCTV", "Elevator"],
+    owner: "Mehul Choksi"
   }
 ];
