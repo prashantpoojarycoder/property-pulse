@@ -35,18 +35,26 @@ export default function Dashboard() {
                <Button variant="secondary" className="w-full justify-start gap-3 bg-white hover:bg-slate-100 shadow-sm border border-slate-200">
                  <LayoutDashboard className="h-4 w-4" /> My Activity
                </Button>
-               <Button variant="ghost" className="w-full justify-start gap-3">
-                 <Search className="h-4 w-4" /> Recently Searched
-               </Button>
-               <Button variant="ghost" className="w-full justify-start gap-3">
-                 <Eye className="h-4 w-4" /> Recently Viewed
-               </Button>
-               <Button variant="ghost" className="w-full justify-start gap-3">
-                 <Heart className="h-4 w-4" /> Shortlisted
-               </Button>
-               <Button variant="ghost" className="w-full justify-start gap-3">
-                 <MessageSquare className="h-4 w-4" /> Contacted <span className="ml-auto bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">0</span>
-               </Button>
+               <Link href="/recently-searched" className="block">
+                 <Button variant="ghost" className="w-full justify-start gap-3">
+                   <Search className="h-4 w-4" /> Recently Searched
+                 </Button>
+               </Link>
+               <Link href="/recently-viewed" className="block">
+                 <Button variant="ghost" className="w-full justify-start gap-3">
+                   <Eye className="h-4 w-4" /> Recently Viewed
+                 </Button>
+               </Link>
+               <Link href="/shortlisted" className="block">
+                 <Button variant="ghost" className="w-full justify-start gap-3">
+                   <Heart className="h-4 w-4" /> Shortlisted
+                 </Button>
+               </Link>
+               <Link href="/contacted" className="block">
+                 <Button variant="ghost" className="w-full justify-start gap-3">
+                   <MessageSquare className="h-4 w-4" /> Contacted <span className="ml-auto bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">0</span>
+                 </Button>
+               </Link>
                
                <div className="pt-4 border-t border-slate-100 mt-4">
                  <Button 

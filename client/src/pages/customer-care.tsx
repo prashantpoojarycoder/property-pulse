@@ -5,8 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { MessageSquare, Phone, Mail, Send } from "lucide-react";
+import { useEffect } from "react";
 
 export default function CustomerCare() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleWhatsApp = () => {
     window.open("https://wa.me/919076166660", "_blank");
   };

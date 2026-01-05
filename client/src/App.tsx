@@ -12,6 +12,10 @@ import Auth from "@/pages/auth";
 import Dashboard from "@/pages/dashboard";
 import AboutUs from "@/pages/about-us";
 import CustomerCare from "@/pages/customer-care";
+import RecentlySearched from "@/pages/recently-searched";
+import RecentlyViewed from "@/pages/recently-viewed";
+import Shortlisted from "@/pages/shortlisted";
+import Contacted from "@/pages/contacted";
 
 function Router() {
   return (
@@ -24,6 +28,10 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/customer-care" component={CustomerCare} />
+      <Route path="/recently-searched" component={RecentlySearched} />
+      <Route path="/recently-viewed" component={RecentlyViewed} />
+      <Route path="/shortlisted" component={Shortlisted} />
+      <Route path="/contacted" component={Contacted} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
