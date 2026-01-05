@@ -18,10 +18,16 @@ export function PropertyCard({ property }: PropertyCardProps) {
   const handleLike = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    
+    // Simulate Login Requirement
     toast({
-      title: isLiked ? "Removed from Wishlist" : "Added to Wishlist",
-      description: property.title,
+      title: "Login Required",
+      description: "Please sign in to save properties to your wishlist.",
+      action: (
+        <Link href="/auth">
+          <Button size="sm" className="bg-primary text-white">Login</Button>
+        </Link>
+      ),
     });
   };
 

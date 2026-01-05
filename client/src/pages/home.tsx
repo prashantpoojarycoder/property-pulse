@@ -11,8 +11,34 @@ import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import useEmblaCarousel from 'embla-carousel-react';
+import { useCallback, useState } from "react";
 
 export default function Home() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start', skipSnaps: false });
+  const [activeCity, setActiveCity] = useState("mum");
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  const localitiesByCity: Record<string, string[]> = {
+    mum: ["Worli", "Bandra West", "Juhu", "Powai", "Andheri East", "Colaba", "Lower Parel"],
+    del: ["Vasant Vihar", "Golf Links", "Greater Kailash", "DLF Phase 5", "Chanakyapuri"],
+    blr: ["Indiranagar", "Koramangala", "Whitefield", "Jayanagar", "HSR Layout"],
+    pun: ["Koregaon Park", "Baner", "Kalyani Nagar", "Hinjewadi"],
+    hyd: ["Banjara Hills", "Jubilee Hills", "Gachibowli", "HITEC City"],
+    che: ["Adyar", "Besant Nagar", "Anna Nagar", "Mylapore"],
+    goa: ["Anjuna", "Panjim", "Calangute", "Assagao"]
+  };
+
+  const suggestedProperties = [
+    { title: "1 BHK - Pune", price: "₹45 Lakh", image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=400" },
+    { title: "Office - Bengaluru", price: "₹1.2 Cr", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400" },
+    { title: "Villa - Goa", price: "₹2.5 Cr", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=400" },
+    { title: "Penthouse - Mumbai", price: "₹12 Cr", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400" },
+    { title: "Studio - Hyderabad", price: "₹85 Lakh", image: "https://images.unsplash.com/photo-1536376074432-834fa5725800?auto=format&fit=crop&q=80&w=400" }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col selection:bg-primary/20">
       <Navbar />
@@ -59,11 +85,21 @@ export default function Home() {
             className="max-w-5xl mx-auto glass p-2 rounded-[2rem] shadow-2xl overflow-hidden"
           >
             <Tabs defaultValue="buy" className="w-full">
-              <div className="flex justify-between items-center px-6 py-2">
-                <TabsList className="bg-slate-100/80 rounded-full h-10 p-1">
-                  <TabsTrigger value="buy" className="rounded-full px-6 text-xs uppercase font-bold tracking-wider">Buy</TabsTrigger>
-                  <TabsTrigger value="rent" className="rounded-full px-6 text-xs uppercase font-bold tracking-wider">Rent</TabsTrigger>
-                </TabsList>
+              <div className="flex flex-col md:flex-row justify-between items-center px-6 py-4 gap-4">
+                <div className="flex gap-2">
+                  <TabsList className="bg-slate-100/80 rounded-full h-10 p-1">
+                    <TabsTrigger value="buy" className="rounded-full px-6 text-[10px] uppercase font-bold tracking-wider">Buy</TabsTrigger>
+                    <TabsTrigger value="rent" className="rounded-full px-6 text-[10px] uppercase font-bold tracking-wider">Rent</TabsTrigger>
+                  </TabsList>
+                  
+                  <Tabs defaultValue="residential" className="w-auto">
+                    <TabsList className="bg-slate-100/80 rounded-full h-10 p-1">
+                      <TabsTrigger value="residential" className="rounded-full px-4 text-[10px] uppercase font-bold tracking-wider">Residential</TabsTrigger>
+                      <TabsTrigger value="commercial" className="rounded-full px-4 text-[10px] uppercase font-bold tracking-wider">Commercial</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+
                 <div className="hidden md:flex gap-4 text-[10px] uppercase font-bold tracking-widest text-slate-400">
                   <span>Mumbai</span>
                   <span>Delhi</span>
@@ -73,7 +109,7 @@ export default function Home() {
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-2 p-2">
                 <div className="md:col-span-1">
-                  <Select>
+                  <Select onValueChange={(val) => setActiveCity(val)} defaultValue="mum">
                     <SelectTrigger className="w-full h-14 bg-white/50 border-none rounded-2xl focus:ring-2 ring-primary/20">
                       <div className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-primary" />
@@ -95,32 +131,31 @@ export default function Home() {
                 <div className="md:col-span-1">
                   <Select>
                     <SelectTrigger className="w-full h-14 bg-white/50 border-none rounded-2xl focus:ring-2 ring-primary/20">
-                      <SelectValue placeholder="Property Type" />
+                      <SelectValue placeholder="Locality" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="apt">Apartment</SelectItem>
-                      <SelectItem value="villa">Villa</SelectItem>
-                      <SelectItem value="pent">Penthouse</SelectItem>
-                      <SelectItem value="land">Plot / Land</SelectItem>
-                      <SelectItem value="off">Office</SelectItem>
-                      <SelectItem value="shp">Shop</SelectItem>
+                      {localitiesByCity[activeCity]?.map(loc => (
+                        <SelectItem key={loc} value={loc.toLowerCase()}>{loc}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div className="md:col-span-1 text-left">
-                   <div className="flex gap-2 p-1">
-                    <Input 
-                      type="number" 
-                      placeholder="Min Sqft" 
-                      className="h-12 bg-white/50 border-none rounded-xl text-xs"
-                    />
-                    <Input 
-                      type="number" 
-                      placeholder="Max Sqft" 
-                      className="h-12 bg-white/50 border-none rounded-xl text-xs"
-                    />
-                   </div>
+                <div className="md:col-span-1">
+                   <Select>
+                    <SelectTrigger className="w-full h-14 bg-white/50 border-none rounded-2xl focus:ring-2 ring-primary/20">
+                      <SelectValue placeholder="Price Range" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="under-50l">Under ₹50 Lakh</SelectItem>
+                      <SelectItem value="50-75l">₹50L - ₹75L</SelectItem>
+                      <SelectItem value="75l-1c">₹75L - ₹1 Cr</SelectItem>
+                      <SelectItem value="1-2c">₹1 Cr - ₹2 Cr</SelectItem>
+                      <SelectItem value="2-5c">₹2 Cr - ₹5 Cr</SelectItem>
+                      <SelectItem value="5-10c">₹5 Cr - ₹10 Cr</SelectItem>
+                      <SelectItem value="above-10c">Above ₹10 Cr</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="md:col-span-1">
@@ -249,7 +284,7 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className="text-sm font-bold text-primary uppercase tracking-[0.3em] mb-4">Curated Selections</h2>
-              <h3 className="text-4xl font-bold text-slate-900">Premium <span className="text-gradient">Indian Estates.</span></h3>
+              <h3 className="text-4xl font-bold text-slate-900">Premium <span className="text-gradient">Properties.</span></h3>
             </motion.div>
             <Link 
               href="/listings" 
@@ -309,24 +344,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Suggested Horizontal Scroll Integration */}
-      <section className="py-24 bg-slate-50">
+      {/* Suggested Properties Slider (Embla) */}
+      <section className="py-24 bg-slate-50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <h3 className="text-2xl font-bold mb-8 font-display">Suggested Properties</h3>
-          <div className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide">
-            {[
-              { title: "1 BHK - Pune", price: "₹45 Lakh", image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=400" },
-              { title: "Office - Bengaluru", price: "₹1.2 Cr", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400" },
-              { title: "Villa - Goa", price: "₹2.5 Cr", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=400" }
-            ].map((p, i) => (
-              <div key={i} className="min-w-[300px] bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:shadow-xl transition-all cursor-pointer group">
-                <div className="h-40 rounded-2xl overflow-hidden mb-4 bg-slate-200">
-                  <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+          <div className="flex justify-between items-center mb-12">
+            <h3 className="text-2xl font-bold font-display">Suggested Properties</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" size="icon" className="rounded-full" onClick={scrollPrev}>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon" className="rounded-full" onClick={scrollNext}>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container flex gap-6">
+              {suggestedProperties.map((p, i) => (
+                <div key={i} className="embla__slide min-w-[300px] md:min-w-[350px] bg-white rounded-[2.5rem] p-6 shadow-sm border border-slate-100 hover:shadow-xl transition-all cursor-pointer group flex-shrink-0">
+                  <div className="h-48 rounded-2xl overflow-hidden mb-6 bg-slate-200">
+                    <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  </div>
+                  <h4 className="font-bold text-xl text-slate-900 font-display">{p.title}</h4>
+                  <p className="text-primary font-bold text-xl mt-2">{p.price}</p>
+                  <Button variant="ghost" className="mt-6 w-full rounded-xl border border-slate-100 group-hover:bg-primary group-hover:text-white transition-all">
+                    View Details
+                  </Button>
                 </div>
-                <h4 className="font-bold text-slate-900">{p.title}</h4>
-                <p className="text-primary font-bold text-lg mt-1">{p.price}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -366,3 +413,11 @@ export default function Home() {
     </div>
   );
 }
+
+const ChevronLeft = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m15 18-6-6 6-6"/></svg>
+);
+
+const ChevronRight = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m9 18 6-6-6-6"/></svg>
+);
