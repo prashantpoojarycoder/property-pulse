@@ -20,6 +20,8 @@ export default function Listings() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState([100]); // Max price in Cr (100 Cr)
+  const [minArea, setMinArea] = useState<string>("");
+  const [maxArea, setMaxArea] = useState<string>("");
   const [sortBy, setSortBy] = useState("relevant");
 
   const filteredProperties = useMemo(() => {
@@ -31,8 +33,13 @@ export default function Listings() {
       // Rough price comparison for mockup
       const priceInCr = p.type === "Buy" ? p.priceValue / 10000000 : 0;
       const matchesPrice = p.type === "Rent" || priceInCr <= priceRange[0];
+
+      // Area filtering
+      const propertyArea = parseInt(p.area.replace(/\D/g, ""));
+      const matchesMinArea = !minArea || propertyArea >= parseInt(minArea);
+      const matchesMaxArea = !maxArea || propertyArea <= parseInt(maxArea);
       
-      return matchesSearch && matchesType && matchesPrice;
+      return matchesSearch && matchesType && matchesPrice && matchesMinArea && matchesMaxArea;
     }).sort((a, b) => {
       if (sortBy === "price-low") return a.priceValue - b.priceValue;
       if (sortBy === "price-high") return b.priceValue - a.priceValue;
@@ -132,6 +139,29 @@ export default function Listings() {
                   className="w-full"
                   onValueChange={setPriceRange}
                 />
+              </div>
+
+              <div className="h-px bg-slate-100 my-6" />
+
+              {/* Area Range */}
+              <div className="space-y-4">
+                <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wider">Area (sqft)</h4>
+                <div className="flex gap-2">
+                  <Input 
+                    type="number" 
+                    placeholder="Min Area" 
+                    className="h-10 rounded-xl bg-slate-50 border-none text-xs"
+                    value={minArea}
+                    onChange={(e) => setMinArea(e.target.value)}
+                  />
+                  <Input 
+                    type="number" 
+                    placeholder="Max Area" 
+                    className="h-10 rounded-xl bg-slate-50 border-none text-xs"
+                    value={maxArea}
+                    onChange={(e) => setMaxArea(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="h-px bg-slate-100 my-6" />
