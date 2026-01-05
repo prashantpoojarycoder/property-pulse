@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { PropertyCard } from "@/components/property-card";
 import { mockProperties } from "@/lib/mockData";
-import { LayoutDashboard, Home, Eye, MessageSquare, Settings, PlusCircle, LogOut } from "lucide-react";
+import { LayoutDashboard, Home, Eye, MessageSquare, Settings, PlusCircle, LogOut, User, Search, Heart } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 export default function Dashboard() {
