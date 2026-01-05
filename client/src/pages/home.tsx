@@ -265,7 +265,7 @@ export default function Home() {
       </section>
 
       {/* Privacy Section Integration */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100">
+      <section id="privacy" className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-8">
            <h2 className="text-3xl font-bold font-display">Your Privacy, Our Priority</h2>
            <p className="text-slate-600 leading-relaxed italic">

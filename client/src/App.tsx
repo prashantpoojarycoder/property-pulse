@@ -10,6 +10,8 @@ import PropertyDetails from "@/pages/property-details";
 import PostProperty from "@/pages/post-property";
 import Auth from "@/pages/auth";
 import Dashboard from "@/pages/dashboard";
+import AboutUs from "@/pages/about-us";
+import CustomerCare from "@/pages/customer-care";
 
 function Router() {
   return (
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/post-property" component={PostProperty} />
       <Route path="/auth" component={Auth} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/about-us" component={AboutUs} />
+      <Route path="/customer-care" component={CustomerCare} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />

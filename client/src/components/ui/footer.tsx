@@ -39,11 +39,25 @@ export function Footer() {
           >
             <h3 className="text-white font-semibold mb-4">Explore</h3>
             <ul className="space-y-2">
-              {["Home", "Properties", "Post Property", "About Us", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link href={item === "Post Property" ? "/post-property" : "#"} className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Properties", href: "/listings" },
+                { label: "About Us", href: "/about-us" },
+                { label: "Customer Care", href: "/customer-care" },
+                { label: "Privacy Policy", href: "/#privacy" }
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link 
+                    href={item.href} 
+                    className="text-slate-400 hover:text-primary transition-colors text-sm cursor-pointer flex items-center gap-2 group"
+                    onClick={() => {
+                      if (item.href === "/") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }}
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
