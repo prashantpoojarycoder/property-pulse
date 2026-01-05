@@ -87,6 +87,7 @@ export default function Home() {
                       <SelectItem value="pun">Pune</SelectItem>
                       <SelectItem value="hyd">Hyderabad</SelectItem>
                       <SelectItem value="che">Chennai</SelectItem>
+                      <SelectItem value="goa">Goa</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -101,23 +102,25 @@ export default function Home() {
                       <SelectItem value="villa">Villa</SelectItem>
                       <SelectItem value="pent">Penthouse</SelectItem>
                       <SelectItem value="land">Plot / Land</SelectItem>
+                      <SelectItem value="off">Office</SelectItem>
+                      <SelectItem value="shp">Shop</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div className="md:col-span-1">
-                   <Select>
-                    <SelectTrigger className="w-full h-14 bg-white/50 border-none rounded-2xl focus:ring-2 ring-primary/20">
-                      <SelectValue placeholder="Budget Range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="50l">₹50L - ₹1Cr</SelectItem>
-                      <SelectItem value="1c">₹1Cr - ₹5Cr</SelectItem>
-                      <SelectItem value="5c">₹5Cr - ₹10Cr</SelectItem>
-                      <SelectItem value="10c">₹10Cr - ₹20Cr</SelectItem>
-                      <SelectItem value="20c">₹20Cr+</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="md:col-span-1 text-left">
+                   <div className="flex gap-2 p-1">
+                    <Input 
+                      type="number" 
+                      placeholder="Min Sqft" 
+                      className="h-12 bg-white/50 border-none rounded-xl text-xs"
+                    />
+                    <Input 
+                      type="number" 
+                      placeholder="Max Sqft" 
+                      className="h-12 bg-white/50 border-none rounded-xl text-xs"
+                    />
+                   </div>
                 </div>
 
                 <div className="md:col-span-1">
@@ -226,8 +229,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Privacy Section Integration */}
+      <section className="py-24 bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto px-4 max-w-4xl text-center space-y-8">
+           <h2 className="text-3xl font-bold font-display">Your Privacy, Our Priority</h2>
+           <p className="text-slate-600 leading-relaxed italic">
+             "PropertyWorld.io respects your privacy. We collect user information such as name, contact details, and property preferences only to provide better services. Data is not sold to third parties. This platform complies with Indian IT laws and data protection guidelines."
+           </p>
+        </div>
+      </section>
+
       {/* Featured Properties */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <motion.div
@@ -291,6 +304,28 @@ export default function Home() {
                   </Card>
                 </Link>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Suggested Horizontal Scroll Integration */}
+      <section className="py-24 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <h3 className="text-2xl font-bold mb-8 font-display">Suggested Properties</h3>
+          <div className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide">
+            {[
+              { title: "1 BHK - Pune", price: "₹45 Lakh", image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=400" },
+              { title: "Office - Bengaluru", price: "₹1.2 Cr", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400" },
+              { title: "Villa - Goa", price: "₹2.5 Cr", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=400" }
+            ].map((p, i) => (
+              <div key={i} className="min-w-[300px] bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:shadow-xl transition-all cursor-pointer group">
+                <div className="h-40 rounded-2xl overflow-hidden mb-4 bg-slate-200">
+                  <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <h4 className="font-bold text-slate-900">{p.title}</h4>
+                <p className="text-primary font-bold text-lg mt-1">{p.price}</p>
+              </div>
             ))}
           </div>
         </div>

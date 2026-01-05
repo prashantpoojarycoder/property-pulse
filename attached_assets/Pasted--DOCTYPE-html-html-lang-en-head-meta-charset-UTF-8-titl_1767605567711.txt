@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PropertyWorld.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background:#f5f7fa; }
+    header, footer { background:#0b5ed7; color:#fff; padding:15px; }
+    nav button { margin-right:10px; }
+    .container { padding:20px; }
+    .card { background:#fff; padding:15px; margin:10px 0; border-radius:8px; }
+    .dashboard { display:flex; gap:15px; }
+    .menu { width:200px; }
+    .menu li { list-style:none; padding:10px; cursor:pointer; background:#fff; margin-bottom:8px; border-radius:6px; }
+    .menu li:hover { background:#e9f1ff; }
+    .content { flex:1; }
+    .horizontal { display:flex; overflow-x:auto; gap:15px; }
+    .property-card { min-width:220px; background:#fff; padding:10px; border-radius:8px; }
+    .like { cursor:pointer; color:red; font-size:20px; }
+    input, select { padding:8px; margin:5px; }
+    footer a { color:#fff; margin-right:15px; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>🏠 PropertyWorld.io</h2>
+  <button data-nav="home">Home</button>
+  <button data-nav="dashboard">Dashboard</button>
+  <button data-nav="shortlisted">❤️ Liked</button>
+</header>
+
+<!-- HOME -->
+<div id="home" class="container page">
+  <h3>Search Properties</h3>
+
+  <input placeholder="City" />
+  <select>
+    <option>Buy</option>
+    <option>Rent</option>
+  </select>
+
+  <select>
+    <optgroup label="Residential">
+      <option>Flat</option>
+      <option>Villa</option>
+      <option>House</option>
+    </optgroup>
+    <optgroup label="Commercial">
+      <option>Office</option>
+      <option>Shop</option>
+      <option>Warehouse</option>
+    </optgroup>
+  </select>
+
+  <input type="number" placeholder="Min Area (sqft)">
+  <input type="number" placeholder="Max Area (sqft)">
+
+  <select>
+    <option>Budget</option>
+    <option>Under ₹50 Lakh</option>
+    <option>₹50–75 Lakh</option>
+    <option>₹75 Lakh – 1 Cr</option>
+    <option>₹1–1.25 Cr</option>
+    <option>₹1.25–1.5 Cr</option>
+    <option>₹1.5–2 Cr</option>
+    <option>Above ₹2 Cr</option>
+  </select>
+
+  <div class="card">
+    <h4>2 BHK Flat – Mumbai</h4>
+    <p>₹75,00,000</p>
+    <span class="like" data-like="1">❤️</span>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="container page" style="display:none;">
+  <div class="dashboard">
+    <ul class="menu">
+      <li data-dash="properties">My Properties</li>
+      <li data-dash="enquiries">Enquiries</li>
+      <li data-dash="shortlisted">Shortlisted</li>
+      <li data-dash="settings">Settings</li>
+    </ul>
+
+    <div class="content" id="dashContent">
+      <h3>Welcome to Dashboard</h3>
+      <p>Select a menu option</p>
+    </div>
+  </div>
+</div>
+
+<!-- SHORTLISTED -->
+<div id="shortlisted" class="container page" style="display:none;">
+  <h3>❤️ Shortlisted Properties</h3>
+  <div id="likedList"></div>
+</div>
+
+<!-- PRIVACY POLICY -->
+<div id="privacy" class="container page" style="display:none;">
+  <h3>Privacy Policy</h3>
+  <p>
+    PropertyWorld.io respects your privacy. We collect user information such as
+    name, contact details, and property preferences only to provide better
+    services. Data is not sold to third parties. This platform complies with
+    Indian IT laws and data protection guidelines.
+  </p>
+</div>
+
+<!-- SUGGESTED PROPERTIES -->
+<div class="container">
+  <h3>Suggested Properties</h3>
+  <div class="horizontal">
+    <div class="property-card">1 BHK – Pune<br>₹45 Lakh</div>
+    <div class="property-card">Office – Bengaluru<br>₹1.2 Cr</div>
+    <div class="property-card">Villa – Goa<br>₹2.5 Cr</div>
+  </div>
+</div>
+
+<footer>
+  <a href="#" data-nav="privacy">Privacy Policy</a>
+  <span>© PropertyWorld.io</span>
+</footer>
+
+<script>
+  const pages = document.querySelectorAll(".page");
+  const liked = [];
+
+  document.addEventListener("click", e => {
+
+    // Navigation
+    if (e.target.dataset.nav) {
+      pages.forEach(p => p.style.display = "none");
+      document.getElementById(e.target.dataset.nav).style.display = "block";
+    }
+
+    // Dashboard routing
+    if (e.target.dataset.dash) {
+      const dc = document.getElementById("dashContent");
+      dc.innerHTML = "<h3>" + e.target.innerText + "</h3><p>Content loaded</p>";
+    }
+
+    // Like property
+    if (e.target.dataset.like) {
+      liked.push("2 BHK Flat – Mumbai ₹75,00,000");
+      alert("Added to Shortlisted ❤️");
+    }
+  });
+
+  // Load liked list
+  document.querySelector('[data-nav="shortlisted"]').onclick = () => {
+    const list = document.getElementById("likedList");
+    list.innerHTML = liked.map(p => <div class="card">${p}</div>).join("");
+  };
+</script>
+
+</body>
+</html>
