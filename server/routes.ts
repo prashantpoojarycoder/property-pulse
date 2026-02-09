@@ -1,16 +1,15 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { Express } from "express";
+import { Server } from "http";
+import authRoutes from './routes/auth.routes';
+import propertyRoutes from "./routes/property.routes";
+
+
 
 export async function registerRoutes(
-  httpServer: Server,
+  Server: Server,
   app: Express
 ): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
-
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
-
-  return httpServer;
+  app.use('/api/auth', authRoutes);
+  app.use("/api/properties", propertyRoutes);
+  return Server;
 }

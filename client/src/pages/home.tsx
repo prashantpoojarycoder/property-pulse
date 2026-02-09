@@ -130,7 +130,7 @@ export default function Home() {
                 
                 <div className="md:col-span-1">
                   <Select>
-                    <SelectTrigger className="w-full h-14 bg-white/50 border-none rounded-2xl focus:ring-2 ring-primary/20">
+                    <SelectTrigger className="w-full h-14 bg-white border-none rounded-2xl focus:ring-2 ring-primary/20">
                       <SelectValue placeholder="Locality" />
                     </SelectTrigger>
                     <SelectContent>
