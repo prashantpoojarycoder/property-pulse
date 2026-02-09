@@ -92,7 +92,7 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.SERVE_CLIENT === "true") {
     serveStatic(app);
   } else {
     // const { setupVite } = await import("./vite.ts");
