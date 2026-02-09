@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Property } from "../models/property.model";
-import { AuthRequest } from "../middlewares/auth.middleware";
+import { Property } from "../models/property.model.ts";
+import { AuthRequest } from "../middlewares/auth.middleware.ts";
 
 
 /**

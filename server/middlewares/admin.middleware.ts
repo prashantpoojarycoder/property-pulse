@@ -1,5 +1,5 @@
 import { Response,NextFunction } from "express";
-import { AuthRequest } from "./auth.middleware";
+import { AuthRequest } from "./auth.middleware.ts";
 
 export const adminGuard = (
     req: AuthRequest,

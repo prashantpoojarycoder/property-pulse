@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { Server } from "http";
-import authRoutes from './routes/auth.routes';
-import propertyRoutes from "./routes/property.routes";
+import authRoutes from './routes/auth.routes.ts';
+import propertyRoutes from "./routes/property.routes.ts";
 
 
 
