@@ -2,8 +2,8 @@
 import mongoose from "mongoose";
 import express, { type Request, Response, NextFunction } from "express";
 
-import { registerRoutes } from "./routes.ts";
-import { serveStatic } from "./static.ts";
+import { registerRoutes } from "./routes.js";
+import { serveStatic } from "./static.js";
 import { createServer } from "http";
 
 const app = express();
@@ -95,8 +95,8 @@ app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production") {
     serveStatic(app);
   } else {
-    const { setupVite } = await import("./vite.ts");
-    await setupVite(httpServer, app);
+    // const { setupVite } = await import("./vite.ts");
+    // await setupVite(httpServer, app);
   }
 
   const port = parseInt(process.env.PORT || "5000", 10);

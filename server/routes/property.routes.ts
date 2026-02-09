@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createProperty,getProperties,getPropertyById } from "../controllers/property.controller.ts";
-import { authGuard } from "../middlewares/auth.middleware.ts";
-import { adminGuard } from "../middlewares/admin.middleware.ts";
+import { createProperty,getProperties,getPropertyById } from "../controllers/property.controller.js";
+import { authGuard } from "../middlewares/auth.middleware.js";
+import { adminGuard } from "../middlewares/admin.middleware.js";
 
 const router = Router();
 // Admin can create a new property listing

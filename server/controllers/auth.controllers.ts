@@ -1,8 +1,8 @@
 import { Request,Response } from "express";
 import bcrypt from "bcryptjs";
-import { User } from "../models/users.model.ts";
+import { User } from "../models/users.model.js";
 import jwt from "jsonwebtoken";
-import { AuthRequest } from "../middlewares/auth.middleware.ts";
+import { AuthRequest } from "../middlewares/auth.middleware.js";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
     try {
