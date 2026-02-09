@@ -5,9 +5,24 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes.js";
 import { serveStatic } from "./static.js";
 import { createServer } from "http";
+import cors from "cors";
+
 
 const app = express();
 const httpServer = createServer(app);
+
+app.use(cors({
+  origin: [
+    "https://propertyurben.com",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+app.options("*", cors());
+
 
 // ✅ MongoDB connection
 
