@@ -1,10 +1,3 @@
-import path from "path";
-import dotenv from "dotenv";
-
-dotenv.config({
-
-  path: path.resolve(process.cwd(), ".env"),
-});
 
 import mongoose from "mongoose";
 import express, { type Request, Response, NextFunction } from "express";
@@ -17,8 +10,15 @@ const app = express();
 const httpServer = createServer(app);
 
 // ✅ MongoDB connection
+
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is missing");
+  process.exit(1);
+}
 mongoose
-  .connect(process.env.MONGO_URI as string)
+  .connect(MONGO_URI as string)
   .then(() => {
     log("MongoDB connected", "mongo");
   })
