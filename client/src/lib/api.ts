@@ -5,14 +5,16 @@ export async function api<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const token = localStorage.getItem("token");
+  const isFormData = options.body instanceof FormData;
 
   const res = await fetch(`${API_URL}${path}`, {
+    ...options,
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
     },
     credentials: "include",
-    ...options,
   });
 
   if (!res.ok) {
@@ -62,10 +64,11 @@ export async function getPropertyById(id: string) {
   return api(`/api/properties/${id}`);
 }
 
-export async function createProperty(data: any) {
+export async function createProperty(data: FormData) {
+  console.log("Creating property with data:", data);
   return api("/api/properties", {
     method: "POST",
-    body: JSON.stringify(data),
+    body: data,   // FormData
   });
 }
 

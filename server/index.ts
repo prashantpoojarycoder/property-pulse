@@ -1,4 +1,4 @@
-
+import "dotenv/config";
 import mongoose from "mongoose";
 import express, { type Request, Response, NextFunction } from "express";
 
@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 app.use(cors({
   origin: [
     "https://propertyurben.com",
-    "http://localhost:5173"
+    "http://localhost:5001"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -48,16 +48,23 @@ declare module "http" {
     rawBody: unknown;
   }
 }
+// app.use((req, res, next) => {
+//   console.log("➡️ Incoming:", req.method, req.url, req.headers["content-type"]);
+//   next();
+// });
+app.use((req, res, next) => {
+  const contentType = req.headers["content-type"] || "";
 
-app.use(
-  express.json({
-    verify: (req, _res, buf) => {
-      req.rawBody = buf;
-    },
-  }),
-);
+  if (contentType.includes("multipart/form-data")) {
+    return next(); // multer will handle this
+  }
 
-app.use(express.urlencoded({ extended: false }));
+  app.use(express.json({ limit: "2mb" }));
+  next();
+});
+
+app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {

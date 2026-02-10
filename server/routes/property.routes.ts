@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { createProperty,getProperties,getPropertyById } from "../controllers/property.controller.js";
+import { createProperty, getProperties, getPropertyById } from "../controllers/property.controller.js";
 import { authGuard } from "../middlewares/auth.middleware.js";
 import { adminGuard } from "../middlewares/admin.middleware.js";
+import { upload } from "../middlewares/upload.js";
 
 const router = Router();
 // Admin can create a new property listing
 // router.post("/", authGuard, adminGuard, createProperty);
 // For Loged in users to create property listing
-router.post("/", authGuard, createProperty);
+router.post("/", authGuard, upload.array("photos", 6), createProperty);
 
 // List all properties with pagination
 router.get("/", getProperties);

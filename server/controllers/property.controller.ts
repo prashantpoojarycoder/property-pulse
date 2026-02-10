@@ -9,20 +9,35 @@ import { AuthRequest } from "../middlewares/auth.middleware.js";
  * @access Admin
  */
 export const createProperty = async (req: AuthRequest, res: Response) => {
-    try {
-        const property = await Property.create({
-            ...req.body,
-            owner: req.user?.userId
-        });
+  try {
+    console.log("Content-Type:", req.headers["content-type"]);
+    console.log("Body:", req.body);
+    console.log("Files:", req.files);
 
-        res.status(201).json({
-            message: "Property created successfully",
-            property
-        });
-    } catch (error) {
-        res.status(500).json({ message: "Internal server error while creating property" });
-    }
+    const photos =
+      (req.files as Express.Multer.File[] | undefined)?.map(
+        (file: any) => file.path // cloudinary URL
+      ) || [];
+
+    const property = await Property.create({
+      ...req.body,
+      gallery: {
+        photos,
+        videos: [],
+      },
+      owner: req.user?.userId,
+    });
+
+    res.status(201).json({
+      message: "Property created successfully",
+      property,
+    });
+  } catch (error) {
+    console.error("Create property error:", error);
+    res.status(500).json({ message: "Internal server error while creating property" });
+  }
 };
+
 
 /**
  * List all properties with pagination

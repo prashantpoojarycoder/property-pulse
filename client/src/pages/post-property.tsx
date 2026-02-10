@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Upload, Home } from "lucide-react";
+import { Upload, Home, Image } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
@@ -22,12 +22,15 @@ export default function PostProperty() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [photos, setPhotos] = useState<File[]>([]);
+
 
   const [form, setForm] = useState({
     title: "",
     price: "",
-    iWantTo: "sell",
-    propertyType: "apartment",
+    iWantTo: "Sell",
+    propertyType: "Apartment",
+    commercialType: "Residential",
     city: "",
     locality: "",
     contact: "",
@@ -37,38 +40,51 @@ export default function PostProperty() {
     bathrooms: "",
     area: "",
     description: "",
-    photos: [] as string[],
+    photos
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setForm({ ...form, photos: Array.from(e.target.files) });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
-      await createProperty({
-        title: form.title,
-        price: form.price,
-        iWantTo: form.iWantTo,
-        propertyType: form.propertyType,
-        city: form.city,
-        locality: form.locality,
-        contact: form.contact,
-        email: form.email,
-        fullAddress: form.fullAddress,
-        bedrooms: Number(form.bedrooms),
-        bathrooms: Number(form.bathrooms),
-        area: Number(form.area),
-        description: form.description,
-        photos: form.photos, // later you can connect image upload
-      });
+      const fd = new FormData();
+
+      fd.append("title", form.title);
+      fd.append("price", String(form.price));
+      fd.append("iWantTo", form.iWantTo);
+      fd.append("propertyType", form.propertyType);
+      fd.append("commercialType", form.commercialType);
+
+      fd.append("city", form.city);
+      fd.append("area", form.locality);
+      fd.append("contactNumber", form.contact);
+      fd.append("email", form.email);
+      fd.append("fullAddress", form.fullAddress);
+
+      fd.append("bedrooms", String(form.bedrooms));
+      fd.append("bathrooms", String(form.bathrooms));
+      fd.append("builtUpArea", String(form.area));
+      fd.append("description", form.description);
+
+      // ✅ append images
+      for (const file of form.photos) {
+        fd.append("photos", file);
+      }
+
+      await createProperty(fd);
 
       toast({
         title: "Property Posted Successfully!",
-        description: "Your property is now live and visible to thousands of buyers.",
+        description: "Your property is now live and visible to buyers.",
       });
 
       setLocation("/dashboard");
@@ -83,6 +99,7 @@ export default function PostProperty() {
     }
   };
 
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <Navbar />
@@ -91,7 +108,9 @@ export default function PostProperty() {
         <div className="max-w-3xl mx-auto">
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold text-slate-900">Post a Property</h1>
-            <p className="text-slate-500 mt-2">Fill in the details to list your property on PropertyWorld</p>
+            <p className="text-slate-500 mt-2">
+              Fill in the details to list your property
+            </p>
           </div>
 
           <Card className="border-none shadow-xl">
@@ -103,7 +122,7 @@ export default function PostProperty() {
                 <div>
                   <CardTitle className="text-2xl">Property Details</CardTitle>
                   <CardDescription className="text-slate-400 mt-1">
-                    Provide accurate information for better visibility
+                    Provide accurate information
                   </CardDescription>
                 </div>
               </div>
@@ -115,38 +134,53 @@ export default function PostProperty() {
                 {/* Basic Info */}
                 <div className="space-y-4">
                   <h3 className="font-semibold text-lg border-b pb-2">Basic Information</h3>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
+                    <div>
                       <Label htmlFor="title">Property Title</Label>
                       <Input id="title" required onChange={handleChange} />
                     </div>
-                    <div className="space-y-2">
+
+                    <div>
                       <Label htmlFor="price">Expected Price (₹)</Label>
-                      <Input id="price" required onChange={handleChange} />
+                      <Input id="price" type="number" required onChange={handleChange} />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
                       <Label>I want to</Label>
-                      <Select defaultValue="sell" onValueChange={(v) => setForm({ ...form, iWantTo: v })}>
+                      <Select defaultValue="Sell" onValueChange={(v) => setForm({ ...form, iWantTo: v })}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="sell">Sell</SelectItem>
-                          <SelectItem value="rent">Rent</SelectItem>
+                          <SelectItem value="Sell">Sell</SelectItem>
+                          <SelectItem value="Rent">Rent</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
-                    <div className="space-y-2">
+                    <div>
                       <Label>Property Type</Label>
-                      <Select defaultValue="apartment" onValueChange={(v) => setForm({ ...form, propertyType: v })}>
+                      <Select defaultValue="Apartment" onValueChange={(v) => setForm({ ...form, propertyType: v })}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="apartment">Apartment</SelectItem>
-                          <SelectItem value="house">Independent House</SelectItem>
-                          <SelectItem value="villa">Villa</SelectItem>
-                          <SelectItem value="plot">Plot / Land</SelectItem>
+                          <SelectItem value="Apartment">Apartment</SelectItem>
+                          <SelectItem value="Independent House">Independent House</SelectItem>
+                          <SelectItem value="Villa">Villa</SelectItem>
+                          <SelectItem value="Plot/Land">Plot / Land</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label>Commercial Type</Label>
+                      <Select defaultValue="Residential" onValueChange={(v) => setForm({ ...form, commercialType: v })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Commercial Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Residential">Residential</SelectItem>
+                          <SelectItem value="Commercial">Commercial</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -155,11 +189,11 @@ export default function PostProperty() {
 
                 {/* Location */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg border-b pb-2">Location Details</h3>
+                  <h3 className="font-semibold text-lg border-b pb-2">Location</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input id="city" placeholder="City" required onChange={handleChange} />
                     <Input id="locality" placeholder="Locality" required onChange={handleChange} />
-                    <Input id="contact" placeholder="Contact No" required onChange={handleChange} />
+                    <Input id="contact" placeholder="Contact Number" required onChange={handleChange} />
                     <Input id="email" placeholder="Email" required onChange={handleChange} />
                   </div>
                   <Textarea id="fullAddress" placeholder="Full Address" required onChange={handleChange} />
@@ -167,7 +201,7 @@ export default function PostProperty() {
 
                 {/* Features */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg border-b pb-2">Property Features</h3>
+                  <h3 className="font-semibold text-lg border-b pb-2">Features</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Select onValueChange={(v) => setForm({ ...form, bedrooms: v })}>
                       <SelectTrigger><SelectValue placeholder="Bedrooms" /></SelectTrigger>
@@ -188,10 +222,40 @@ export default function PostProperty() {
                       </SelectContent>
                     </Select>
 
-                    <Input id="area" placeholder="Built-up Area" onChange={handleChange} />
+                    <Input id="area" placeholder="Built-up Area (sq ft)" onChange={handleChange} />
                   </div>
 
                   <Textarea id="description" placeholder="Describe your property..." required onChange={handleChange} />
+                </div>
+
+                {/* Upload Images */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg border-b pb-2">Upload Photos</h3>
+
+                  <Label htmlFor="photos" className="cursor-pointer flex items-center gap-2 border border-dashed p-4 rounded-lg justify-center">
+                    <Upload className="h-5 w-5" />
+                    Upload Property Images
+                  </Label>
+
+                  <Input
+                    id="photos"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={(e) =>
+                      setForm({ ...form, photos: Array.from(e.target.files || []) })
+                    } />
+
+                  {form.photos.length > 0 && (
+                    <div className="grid grid-cols-3 gap-3">
+                      {form.photos.map((file, i) => (
+                        <div key={i} className="text-sm text-slate-600 flex items-center gap-2">
+                          <Image className="h-4 w-4" />
+                          {file.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <Button type="submit" size="lg" className="w-full h-14 text-lg" disabled={isSubmitting}>
