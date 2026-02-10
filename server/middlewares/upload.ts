@@ -5,7 +5,6 @@ import cloudinary from "../config/cloudinary.js";
 const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
-    console.log("Uploading file:", file.originalname);
     return {
       folder: "propertypulse",
       allowed_formats: ["jpg", "jpeg", "png", "webp"],

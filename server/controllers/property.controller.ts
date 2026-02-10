@@ -10,10 +10,6 @@ import { AuthRequest } from "../middlewares/auth.middleware.js";
  */
 export const createProperty = async (req: AuthRequest, res: Response) => {
   try {
-    console.log("Content-Type:", req.headers["content-type"]);
-    console.log("Body:", req.body);
-    console.log("Files:", req.files);
-
     const photos =
       (req.files as Express.Multer.File[] | undefined)?.map(
         (file: any) => file.path // cloudinary URL

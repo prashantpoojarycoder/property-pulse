@@ -65,7 +65,6 @@ export async function getPropertyById(id: string) {
 }
 
 export async function createProperty(data: FormData) {
-  console.log("Creating property with data:", data);
   return api("/api/properties", {
     method: "POST",
     body: data,   // FormData
